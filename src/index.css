@@ -14,3 +14,41 @@ body {
 *::before {
     box-sizing: border-box;
 }
+
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.board {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    padding: 2rem;
+    gap: 2rem;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.list {
+    padding: 1.75rem;
+    border-radius: 5px;
+    background-color: #313131;
+    width: 280px;
+    box-shadow:
+        rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+        rgba(209, 213, 219, 0.25) 0px 0px 0px 1px inset;
+    transition: box-shadow linear 0.2s;
+    cursor: pointer;
+}
+
+.list:hover {
+    box-shadow:
+        rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+        #0d6efd 0px 0px 0px 1px inset;
+    transition: box-shadow linear 0.2s;
+}
