@@ -1,5 +1,21 @@
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import AddListForm from './AddListForm';
+import List from './List';
+
 const Board = () => {
-    return <div>Board</div>;
+    const lists = [1, 2, 3];
+
+    return (
+        <Container>
+            <Row>
+                {lists.map((list, index) => (
+                    <List key={index} />
+                ))}
+                <AddListForm />
+            </Row>
+        </Container>
+    );
 };
 
 export default Board;
