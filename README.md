@@ -1,30 +1,44 @@
-# React + TypeScript + Vite
+# <div align="center">Board App</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
+  <img src="/vite.svg" alt="Vite" title="Vite" style="height: 100px;">
+</div>
 
-Currently, two official plugins are available:
+1. [Introdution](#introdution)
+2. [Setup](#setup)
+3. [Technologies](#technologies)
+4. [Components](#components)
+5. [Testing](#testing)
+6. [Deployment](#deployment)
+7. [Known Issues](#known-issues)
 
--   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
--   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Introdution
 
-## Expanding the ESLint configuration
+Brief overview of the project.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Setup
 
--   Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-    // other rules...
-    parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        project: ['./tsconfig.json', './tsconfig.node.json'],
-        tsconfigRootDir: __dirname
-    }
-};
+```bash
+npm install
+npm start
 ```
 
--   Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
--   Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
--   Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Technologies
+
+List of technologies used in the project.
+
+## Components
+
+Overview of key components.
+
+## Testing
+
+Summary of testing procedures.
+
+## Deployment
+
+Brief instructions for deployment.
+
+## Known Issues
+
+List of known issues and potential solutions.
