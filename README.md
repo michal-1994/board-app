@@ -1,7 +1,7 @@
 # <div align="center">Board App</div>
 
 <div align="center">
-  <img src="/vite.svg" alt="Vite" title="Vite" style="height: 100px;">
+  <img src="/public/vite.svg" alt="Vite" title="Vite" style="height: 100px;">
 </div>
 
 1. [Introdution](#introdution)
