@@ -1,4 +1,4 @@
-const FooterComponent = () => {
+const Footer = () => {
     return (
         <footer className="mt-auto text-center">
             <p>&copy; {new Date().getFullYear()} Board App</p>
@@ -6,4 +6,4 @@ const FooterComponent = () => {
     );
 };
 
-export default FooterComponent;
+export default Footer;

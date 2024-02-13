@@ -1,17 +1,17 @@
 import Board from './components/Board';
-import FooterComponent from './components/FooterComponent';
-import NavbarComponent from './components/NavbarComponent';
+import Footer from './components/Footer';
+import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
     return (
         <div className="app">
-            <NavbarComponent />
+            <Header />
             <main>
                 <Board />
             </main>
-            <FooterComponent />
+            <Footer />
         </div>
     );
 }

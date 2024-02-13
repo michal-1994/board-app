@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 
-const NavbarComponent = () => {
+const Header = () => {
     return (
         <header>
             <Navbar bg="primary" data-bs-theme="dark">
@@ -13,4 +13,4 @@ const NavbarComponent = () => {
     );
 };
 
-export default NavbarComponent;
+export default Header;
