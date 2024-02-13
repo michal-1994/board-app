@@ -4,7 +4,7 @@ const Item = () => {
     return (
         <div className="item-bg">
             <input type="text" placeholder="Item" />
-            <button>
+            <button title="Remove Item">
                 <MdDelete />
             </button>
         </div>

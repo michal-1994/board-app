@@ -4,8 +4,8 @@ const AddListForm = () => {
     return (
         <div className="list">
             <div className="item">
-                <input type="text" placeholder="Dodaj Listę" />
-                <button>
+                <input type="text" placeholder="Add List" />
+                <button title="Add List">
                     <FaPlus />
                 </button>
             </div>
