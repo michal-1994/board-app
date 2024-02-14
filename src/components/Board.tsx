@@ -2,32 +2,56 @@ import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import AddListForm from './AddListForm';
 import List from './List';
-
-interface IList {
-    title: string;
-}
+import { IList } from '../interfaces/IList';
+import { IItem } from '../interfaces/IItem';
 
 const Board = () => {
     const [lists, setLists] = useState<IList[]>([
         {
-            title: 'Todo'
+            title: 'Todo',
+            items: [
+                {
+                    text: 'Todo 1'
+                },
+                {
+                    text: 'Todo 2'
+                }
+            ]
         },
         {
-            title: 'In Progress'
+            title: 'In Progress',
+            items: [
+                {
+                    text: 'Todo 1'
+                },
+                {
+                    text: 'Todo 2'
+                }
+            ]
         },
         {
-            title: 'Done'
+            title: 'Done',
+            items: [
+                {
+                    text: 'Todo 1'
+                },
+                {
+                    text: 'Todo 2'
+                }
+            ]
         }
     ]);
 
     const handleAddList = (listTitle: string) => {
-        console.log('handleAddList listTitle: ', listTitle);
+        console.log('handleAddList: ', listTitle);
     };
 
     const handleChangeList = (listId: number, listTitle: string) => {
+        console.log('handleChangeList');
         const newList = lists.map((list, index) => {
             if (listId === index) {
                 return {
+                    ...list,
                     title: listTitle
                 };
             }
@@ -37,17 +61,45 @@ const Board = () => {
     };
 
     const handleRemoveList = (listId: number) => {
-        console.log('handleRemoveList listId: ', listId);
+        console.log('handleRemoveList: ', listId);
     };
 
     const handleAddItem = (itemText: string, listId: number) => {
-        console.log('handleAddItem itemText: ', itemText);
-        console.log('handleAddItem listId: ', listId);
+        console.log('handleAddItem: ', itemText, listId);
+    };
+
+    const handleChangeItem = (
+        itemId: number,
+        listId: number,
+        itemText: string
+    ) => {
+        console.log('handleChangeItem: ', itemId, listId, itemText);
+
+        const newItems = lists[listId].items.map(
+            (item: IItem, index: number) => {
+                if (itemId === index) {
+                    return {
+                        text: itemText
+                    };
+                }
+                return item;
+            }
+        );
+
+        const newList = lists.map((list, index) => {
+            if (listId === index) {
+                return {
+                    ...list,
+                    items: newItems
+                };
+            }
+            return list;
+        });
+        setLists(newList);
     };
 
     const handleRemoveItem = (itemId: number, listId: number) => {
-        console.log('handleRemoveItem itemId: ', itemId);
-        console.log('handleRemoveItem listId: ', listId);
+        console.log('handleRemoveItem: ', itemId, listId);
     };
 
     return (
@@ -58,8 +110,10 @@ const Board = () => {
                         key={index}
                         listId={index}
                         listTitle={list.title}
+                        items={list.items}
                         onAddItem={handleAddItem}
                         onRemoveItem={handleRemoveItem}
+                        onChangeItem={handleChangeItem}
                         onRemoveList={handleRemoveList}
                         onChangeList={handleChangeList}
                     />

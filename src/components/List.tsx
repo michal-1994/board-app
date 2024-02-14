@@ -1,17 +1,18 @@
 import AddItemForm from './AddItemForm';
 import Item from './Item';
 import ListTitleForm from './ListTitleForm';
+import { IItem } from '../interfaces/IItem';
 
 const List = ({
     listId,
     listTitle,
+    items,
     onAddItem,
     onRemoveItem,
+    onChangeItem,
     onRemoveList,
     onChangeList
 }: any) => {
-    const items = [1, 2, 3];
-
     return (
         <div className="list">
             <ListTitleForm
@@ -20,12 +21,14 @@ const List = ({
                 onRemoveList={onRemoveList}
                 onChangeList={onChangeList}
             />
-            {items.map((item, index) => (
+            {items.map((item: IItem, index: number) => (
                 <Item
                     key={index}
                     itemId={index}
                     listId={listId}
+                    itemText={item.text}
                     onRemoveItem={onRemoveItem}
+                    onChangeItem={onChangeItem}
                 />
             ))}
             <AddItemForm listId={listId} onAddItem={onAddItem} />
