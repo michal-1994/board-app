@@ -15,7 +15,6 @@ const Board = () => {
     };
 
     const handleChangeList = (listId: number, listTitle: string) => {
-        console.log('handleChangeList');
         const newList = lists.map((list, index) => {
             if (listId === index) {
                 return {
@@ -29,7 +28,10 @@ const Board = () => {
     };
 
     const handleRemoveList = (listId: number) => {
-        console.log('handleRemoveList: ', listId);
+        const newList = lists.filter(
+            (list: IList, index: number) => listId !== index
+        );
+        setLists(newList);
     };
 
     const handleAddItem = (itemText: string, listId: number) => {
@@ -41,8 +43,6 @@ const Board = () => {
         listId: number,
         itemText: string
     ) => {
-        console.log('handleChangeItem: ', itemId, listId, itemText);
-
         const newItems = lists[listId].items.map(
             (item: IItem, index: number) => {
                 if (itemId === index) {
