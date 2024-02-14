@@ -1,12 +1,39 @@
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import AddListForm from './AddListForm';
 import List from './List';
 
+interface IList {
+    title: string;
+}
+
 const Board = () => {
-    const lists = [1, 2, 3];
+    const [lists, setLists] = useState<IList[]>([
+        {
+            title: 'Todo'
+        },
+        {
+            title: 'In Progress'
+        },
+        {
+            title: 'Done'
+        }
+    ]);
 
     const handleAddList = (listTitle: string) => {
         console.log('handleAddList listTitle: ', listTitle);
+    };
+
+    const handleChangeList = (listId: number, listTitle: string) => {
+        const newList = lists.map((list, index) => {
+            if (listId === index) {
+                return {
+                    title: listTitle
+                };
+            }
+            return list;
+        });
+        setLists(newList);
     };
 
     const handleRemoveList = (listId: number) => {
@@ -30,9 +57,11 @@ const Board = () => {
                     <List
                         key={index}
                         listId={index}
+                        listTitle={list.title}
                         onAddItem={handleAddItem}
                         onRemoveItem={handleRemoveItem}
                         onRemoveList={handleRemoveList}
+                        onChangeList={handleChangeList}
                     />
                 ))}
                 <AddListForm onAddList={handleAddList} />
