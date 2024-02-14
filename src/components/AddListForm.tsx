@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { Form } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
 
 const AddListForm = ({ onAddList }: any) => {
     const [listTitle, setListTitle] = useState<string>('');
 
     return (
-        <div className="list">
+        <Form className="list">
             <div className="item">
                 <input
                     type="text"
@@ -17,14 +18,15 @@ const AddListForm = ({ onAddList }: any) => {
                 />
                 <button
                     title="Add List"
-                    onClick={() => {
+                    onClick={e => {
+                        e.preventDefault();
                         onAddList(listTitle);
                         setListTitle('');
                     }}>
                     <FaPlus />
                 </button>
             </div>
-        </div>
+        </Form>
     );
 };
 
