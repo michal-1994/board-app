@@ -11,11 +11,11 @@ const Board = () => {
     const [lists, setLists] = useState<IList[]>(LISTS);
 
     const handleAddList = (listTitle: string) => {
-        console.log('handleAddList: ', listTitle);
+        setLists([...lists, { title: listTitle, items: [] }]);
     };
 
     const handleChangeList = (listId: number, listTitle: string) => {
-        const newList = lists.map((list, index) => {
+        const newLists = lists.map((list, index) => {
             if (listId === index) {
                 return {
                     ...list,
@@ -24,14 +24,14 @@ const Board = () => {
             }
             return list;
         });
-        setLists(newList);
+        setLists(newLists);
     };
 
     const handleRemoveList = (listId: number) => {
-        const newList = lists.filter(
+        const newLists = lists.filter(
             (list: IList, index: number) => listId !== index
         );
-        setLists(newList);
+        setLists(newLists);
     };
 
     const handleAddItem = (itemText: string, listId: number) => {
@@ -54,7 +54,7 @@ const Board = () => {
             }
         );
 
-        const newList = lists.map((list, index) => {
+        const newLists = lists.map((list, index) => {
             if (listId === index) {
                 return {
                     ...list,
@@ -63,7 +63,7 @@ const Board = () => {
             }
             return list;
         });
-        setLists(newList);
+        setLists(newLists);
     };
 
     const handleRemoveItem = (itemId: number, listId: number) => {
