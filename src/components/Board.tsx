@@ -35,7 +35,16 @@ const Board = () => {
     };
 
     const handleAddItem = (itemText: string, listId: number) => {
-        console.log('handleAddItem: ', itemText, listId);
+        const newLists = lists.map((list, index) => {
+            if (listId === index) {
+                return {
+                    ...list,
+                    items: [...lists[listId].items, { text: itemText }]
+                };
+            }
+            return list;
+        });
+        setLists(newLists);
     };
 
     const handleChangeItem = (
