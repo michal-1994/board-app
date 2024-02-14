@@ -5,42 +5,10 @@ import List from './List';
 import { IList } from '../interfaces/IList';
 import { IItem } from '../interfaces/IItem';
 
+import { LISTS } from '../data';
+
 const Board = () => {
-    const [lists, setLists] = useState<IList[]>([
-        {
-            title: 'Todo',
-            items: [
-                {
-                    text: 'Todo 1'
-                },
-                {
-                    text: 'Todo 2'
-                }
-            ]
-        },
-        {
-            title: 'In Progress',
-            items: [
-                {
-                    text: 'Todo 1'
-                },
-                {
-                    text: 'Todo 2'
-                }
-            ]
-        },
-        {
-            title: 'Done',
-            items: [
-                {
-                    text: 'Todo 1'
-                },
-                {
-                    text: 'Todo 2'
-                }
-            ]
-        }
-    ]);
+    const [lists, setLists] = useState<IList[]>(LISTS);
 
     const handleAddList = (listTitle: string) => {
         console.log('handleAddList: ', listTitle);
