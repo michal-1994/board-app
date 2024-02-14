@@ -76,7 +76,20 @@ const Board = () => {
     };
 
     const handleRemoveItem = (itemId: number, listId: number) => {
-        console.log('handleRemoveItem: ', itemId, listId);
+        const newItems = lists[listId].items.filter(
+            (item: IItem, index: number) => itemId !== index
+        );
+
+        const newLists = lists.map((list, index) => {
+            if (listId === index) {
+                return {
+                    ...list,
+                    items: newItems
+                };
+            }
+            return list;
+        });
+        setLists(newLists);
     };
 
     return (
