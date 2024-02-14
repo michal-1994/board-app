@@ -2,7 +2,7 @@ import AddItemForm from './AddItemForm';
 import Item from './Item';
 import ListTitleForm from './ListTitleForm';
 
-const List = () => {
+const List = ({ listId, onAddItem }: any) => {
     const items = [1, 2, 3];
 
     return (
@@ -11,7 +11,7 @@ const List = () => {
             {items.map((item, index) => (
                 <Item key={index} />
             ))}
-            <AddItemForm />
+            <AddItemForm listId={listId} onAddItem={onAddItem} />
         </div>
     );
 };
