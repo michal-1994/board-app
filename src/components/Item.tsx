@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
 import { changeItem, removeItem } from '../reducer';
 
 const Item = ({ itemId, listId, text }: any) => {
     const dispatch = useDispatch();
+    const [textCopy, setTextCopy] = useState<string>('');
 
     return (
         <div className="item-bg">
@@ -15,6 +17,16 @@ const Item = ({ itemId, listId, text }: any) => {
                     dispatch(
                         changeItem({ listId, itemId, text: e.target.value })
                     );
+                }}
+                onFocus={e => {
+                    setTextCopy(e.target.value);
+                }}
+                onBlur={e => {
+                    if (e.target.value.length === 0) {
+                        dispatch(
+                            changeItem({ listId, itemId, text: textCopy })
+                        );
+                    }
                 }}
             />
             <button
