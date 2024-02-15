@@ -2,7 +2,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import AddListForm from './AddListForm';
 import List from './List';
-import { ListsState, addList } from '../reducer';
+import {
+    ListsState,
+    addItem,
+    addList,
+    changeItem,
+    changeList,
+    removeItem,
+    removeList
+} from '../reducer';
 
 const Board = () => {
     const lists = useSelector(({ lists }: ListsState) => lists);
@@ -13,36 +21,15 @@ const Board = () => {
     };
 
     const handleChangeList = (listId: number, listTitle: string) => {
-        // const newLists = lists.map((list, index) => {
-        //     if (listId === index) {
-        //         return {
-        //             ...list,
-        //             title: listTitle
-        //         };
-        //     }
-        //     return list;
-        // });
-        // setLists(newLists);
+        dispatch(changeList({ listId, listTitle }));
     };
 
     const handleRemoveList = (listId: number) => {
-        // const newLists = lists.filter(
-        //     (list: IList, index: number) => listId !== index
-        // );
-        // setLists(newLists);
+        dispatch(removeList({ listId }));
     };
 
     const handleAddItem = (itemText: string, listId: number) => {
-        // const newLists = lists.map((list, index) => {
-        //     if (listId === index) {
-        //         return {
-        //             ...list,
-        //             items: [...lists[listId].items, { text: itemText }]
-        //         };
-        //     }
-        //     return list;
-        // });
-        // setLists(newLists);
+        dispatch(addItem({ itemText, listId }));
     };
 
     const handleChangeItem = (
@@ -50,42 +37,11 @@ const Board = () => {
         listId: number,
         itemText: string
     ) => {
-        // const newItems = lists[listId].items.map(
-        //     (item: IItem, index: number) => {
-        //         if (itemId === index) {
-        //             return {
-        //                 text: itemText
-        //             };
-        //         }
-        //         return item;
-        //     }
-        // );
-        // const newLists = lists.map((list, index) => {
-        //     if (listId === index) {
-        //         return {
-        //             ...list,
-        //             items: newItems
-        //         };
-        //     }
-        //     return list;
-        // });
-        // setLists(newLists);
+        dispatch(changeItem({ itemText, listId, itemId }));
     };
 
     const handleRemoveItem = (itemId: number, listId: number) => {
-        // const newItems = lists[listId].items.filter(
-        //     (item: IItem, index: number) => itemId !== index
-        // );
-        // const newLists = lists.map((list, index) => {
-        //     if (listId === index) {
-        //         return {
-        //             ...list,
-        //             items: newItems
-        //         };
-        //     }
-        //     return list;
-        // });
-        // setLists(newLists);
+        dispatch(removeItem({ listId, itemId }));
     };
 
     return (
