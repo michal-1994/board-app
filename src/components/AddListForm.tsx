@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
+import { addList } from '../reducer';
 
-const AddListForm = ({ onAddList }: any) => {
-    const [listTitle, setListTitle] = useState<string>('');
+const AddListForm = () => {
+    const dispatch = useDispatch();
+    const [title, setTitle] = useState<string>('');
 
     return (
         <Form className="list">
@@ -11,17 +14,17 @@ const AddListForm = ({ onAddList }: any) => {
                 <input
                     type="text"
                     placeholder="Add List"
-                    value={listTitle}
+                    value={title}
                     onChange={e => {
-                        setListTitle(e.target.value);
+                        setTitle(e.target.value);
                     }}
                 />
                 <button
                     title="Add List"
                     onClick={e => {
                         e.preventDefault();
-                        onAddList(listTitle);
-                        setListTitle('');
+                        dispatch(addList({ title, items: [] }));
+                        setTitle('');
                     }}>
                     <FaPlus />
                 </button>

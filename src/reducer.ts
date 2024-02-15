@@ -19,20 +19,20 @@ export const listsSlice = createSlice({
         },
         changeList: (
             state,
-            action: PayloadAction<{ listId: number; listTitle: string }>
+            action: PayloadAction<{ listId: number; title: string }>
         ) => {
-            const { listId, listTitle } = action.payload;
-            state.lists[listId] = { ...state.lists[listId], title: listTitle };
+            const { listId, title } = action.payload;
+            state.lists[listId] = { ...state.lists[listId], title };
         },
         removeList: (state, action: PayloadAction<{ listId: number }>) => {
             state.lists.splice(action.payload.listId, 1);
         },
         addItem: (
             state,
-            action: PayloadAction<{ listId: number; itemText: string }>
+            action: PayloadAction<{ listId: number; text: string }>
         ) => {
             state.lists[action.payload.listId].items.push({
-                text: action.payload.itemText
+                text: action.payload.text
             });
         },
         changeItem: (
@@ -40,11 +40,11 @@ export const listsSlice = createSlice({
             action: PayloadAction<{
                 listId: number;
                 itemId: number;
-                itemText: string;
+                text: string;
             }>
         ) => {
-            const { listId, itemId, itemText } = action.payload;
-            state.lists[listId].items[itemId].text = itemText;
+            const { listId, itemId, text } = action.payload;
+            state.lists[listId].items[itemId].text = text;
         },
         removeItem: (
             state,

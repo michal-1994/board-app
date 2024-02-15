@@ -1,25 +1,24 @@
+import { useDispatch } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
+import { changeList, removeList } from '../reducer';
 
-const ListTitleForm = ({
-    listId,
-    listTitle,
-    onRemoveList,
-    onChangeList
-}: any) => {
+const ListTitleForm = ({ listId, title }: any) => {
+    const dispatch = useDispatch();
+
     return (
         <div className="item">
             <input
                 type="text"
                 placeholder="Title"
-                value={listTitle}
+                value={title}
                 onChange={e => {
-                    onChangeList(listId, e.target.value);
+                    dispatch(changeList({ listId, title: e.target.value }));
                 }}
             />
             <button
                 title="Remove List"
                 onClick={() => {
-                    onRemoveList(listId);
+                    dispatch(removeList({ listId }));
                 }}>
                 <MdDelete />
             </button>

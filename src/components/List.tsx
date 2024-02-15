@@ -3,35 +3,19 @@ import Item from './Item';
 import ListTitleForm from './ListTitleForm';
 import { IItem } from '../interfaces/IItem';
 
-const List = ({
-    listId,
-    listTitle,
-    items,
-    onAddItem,
-    onRemoveItem,
-    onChangeItem,
-    onRemoveList,
-    onChangeList
-}: any) => {
+const List = ({ listId, title, items }: any) => {
     return (
         <div className="list">
-            <ListTitleForm
-                listId={listId}
-                listTitle={listTitle}
-                onRemoveList={onRemoveList}
-                onChangeList={onChangeList}
-            />
+            <ListTitleForm listId={listId} title={title} />
             {items.map((item: IItem, index: number) => (
                 <Item
                     key={index}
                     itemId={index}
                     listId={listId}
-                    itemText={item.text}
-                    onRemoveItem={onRemoveItem}
-                    onChangeItem={onChangeItem}
+                    text={item.text}
                 />
             ))}
-            <AddItemForm listId={listId} onAddItem={onAddItem} />
+            <AddItemForm listId={listId} />
         </div>
     );
 };

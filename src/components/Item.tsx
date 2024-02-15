@@ -1,26 +1,26 @@
+import { useDispatch } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
+import { changeItem, removeItem } from '../reducer';
 
-const Item = ({
-    itemId,
-    listId,
-    itemText,
-    onRemoveItem,
-    onChangeItem
-}: any) => {
+const Item = ({ itemId, listId, text }: any) => {
+    const dispatch = useDispatch();
+
     return (
         <div className="item-bg">
             <input
                 type="text"
                 placeholder="Item"
-                value={itemText}
+                value={text}
                 onChange={e => {
-                    onChangeItem(itemId, listId, e.target.value);
+                    dispatch(
+                        changeItem({ listId, itemId, text: e.target.value })
+                    );
                 }}
             />
             <button
                 title="Remove Item"
                 onClick={() => {
-                    onRemoveItem(itemId, listId);
+                    dispatch(removeItem({ listId, itemId }));
                 }}>
                 <MdDelete />
             </button>
