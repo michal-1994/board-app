@@ -19,21 +19,30 @@ Brief overview of the project.
 ## Setup
 
 ```bash
+git clone https://github.com/michal-1994/board-app.git
+cd board-app
 npm install
-npm start
+npm run dev
 ```
 
 ## Technologies
 
-1. Vite
-2. React
-3. Redux
-4. TypeScript
-5. Bootstrap
+- Vite
+- React
+- Redux
+- TypeScript
+- Bootstrap
 
 ## Components
 
-Overview of key components.
+- AddItemForm
+- AddListForm
+- Board
+- Footer
+- Header
+- Item
+- List
+- ListTitleForm
 
 ## Testing
 
