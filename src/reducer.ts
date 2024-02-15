@@ -1,7 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LISTS } from './data';
 import { IList } from './interfaces/IList';
-import { IItem } from './interfaces/IItem';
 
 export interface ListsState {
     lists: IList[];
@@ -15,78 +14,46 @@ export const listsSlice = createSlice({
     name: 'lists',
     initialState,
     reducers: {
-        addList: (state, action) => {
-            state.lists = [...state.lists, action.payload];
+        addList: (state, action: PayloadAction<IList>) => {
+            state.lists.push(action.payload);
         },
-        changeList: (state, action) => {
-            const newLists = state.lists.map((list, index) => {
-                if (action.payload.listId === index) {
-                    return {
-                        ...list,
-                        title: action.payload.listTitle
-                    };
-                }
-                return list;
+        changeList: (
+            state,
+            action: PayloadAction<{ listId: number; listTitle: string }>
+        ) => {
+            const { listId, listTitle } = action.payload;
+            state.lists[listId] = { ...state.lists[listId], title: listTitle };
+        },
+        removeList: (state, action: PayloadAction<{ listId: number }>) => {
+            state.lists.splice(action.payload.listId, 1);
+        },
+        addItem: (
+            state,
+            action: PayloadAction<{ listId: number; itemText: string }>
+        ) => {
+            state.lists[action.payload.listId].items.push({
+                text: action.payload.itemText
             });
-            state.lists = newLists;
         },
-        removeList: (state, action) => {
-            const newLists = state.lists.filter(
-                (list: IList, index: number) => action.payload.listId !== index
+        changeItem: (
+            state,
+            action: PayloadAction<{
+                listId: number;
+                itemId: number;
+                itemText: string;
+            }>
+        ) => {
+            const { listId, itemId, itemText } = action.payload;
+            state.lists[listId].items[itemId].text = itemText;
+        },
+        removeItem: (
+            state,
+            action: PayloadAction<{ listId: number; itemId: number }>
+        ) => {
+            state.lists[action.payload.listId].items.splice(
+                action.payload.itemId,
+                1
             );
-            state.lists = newLists;
-        },
-        addItem: (state, action) => {
-            const newLists = state.lists.map((list, index) => {
-                if (action.payload.listId === index) {
-                    return {
-                        ...list,
-                        items: [
-                            ...state.lists[action.payload.listId].items,
-                            { text: action.payload.itemText }
-                        ]
-                    };
-                }
-                return list;
-            });
-            state.lists = newLists;
-        },
-        changeItem: (state, action) => {
-            const newItems = state.lists[action.payload.listId].items.map(
-                (item: IItem, index: number) => {
-                    if (action.payload.itemId === index) {
-                        return {
-                            text: action.payload.itemText
-                        };
-                    }
-                    return item;
-                }
-            );
-            const newLists = state.lists.map((list, index) => {
-                if (action.payload.listId === index) {
-                    return {
-                        ...list,
-                        items: newItems
-                    };
-                }
-                return list;
-            });
-            state.lists = newLists;
-        },
-        removeItem: (state, action) => {
-            const newItems = state.lists[action.payload.listId].items.filter(
-                (item: IItem, index: number) => action.payload.itemId !== index
-            );
-            const newLists = state.lists.map((list, index) => {
-                if (action.payload.listId === index) {
-                    return {
-                        ...list,
-                        items: newItems
-                    };
-                }
-                return list;
-            });
-            state.lists = newLists;
         }
     }
 });
