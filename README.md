@@ -25,7 +25,11 @@ npm start
 
 ## Technologies
 
-List of technologies used in the project.
+1. Vite
+2. React
+3. Redux
+4. TypeScript
+5. Bootstrap
 
 ## Components
 
