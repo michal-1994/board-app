@@ -33,6 +33,8 @@ const List = ({ listId, title, items }: any) => {
             }
 
             handleMoveList(dragIndex, hoverIndex);
+
+            item.listId = hoverIndex;
         }
     });
 
