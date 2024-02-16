@@ -40,10 +40,7 @@ const List = ({ listId, title, items }: any) => {
         type: 'item',
         item: () => {
             return { listId };
-        },
-        collect: (monitor: any) => ({
-            isDragging: monitor.isDragging()
-        })
+        }
     });
 
     drag(drop(ref));
