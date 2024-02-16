@@ -27,22 +27,22 @@ npm run dev
 
 ## Technologies
 
-- Vite
-- React
-- Redux
-- TypeScript
-- Bootstrap
+-   Vite
+-   React
+-   Redux
+-   TypeScript
+-   Bootstrap
 
 ## Components
 
-- AddItemForm
-- AddListForm
-- Board
-- Footer
-- Header
-- Item
-- List
-- ListTitleForm
+-   AddItemForm
+-   AddListForm
+-   Board
+-   Footer
+-   Header
+-   Item
+-   List
+-   ListTitleForm
 
 ## Testing
 
