@@ -54,6 +54,16 @@ export const listsSlice = createSlice({
                 action.payload.itemId,
                 1
             );
+        },
+        moveList: (
+            state,
+            action: PayloadAction<{ dragIndex: number; hoverIndex: number }>
+        ) => {
+            const { dragIndex, hoverIndex } = action.payload;
+            const draggedList = state.lists[dragIndex];
+
+            state.lists.splice(dragIndex, 1);
+            state.lists.splice(hoverIndex, 0, draggedList);
         }
     }
 });
@@ -64,7 +74,8 @@ export const {
     removeList,
     addItem,
     changeItem,
-    removeItem
+    removeItem,
+    moveList
 } = listsSlice.actions;
 
 export default listsSlice.reducer;
