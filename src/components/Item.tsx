@@ -59,23 +59,17 @@ const Item = ({ itemId, listId, text }: any) => {
         }
     });
 
-    const [{ isDragging }, drag] = useDrag({
+    const [, drag] = useDrag({
         type: 'item',
         item: () => {
             return { listId, itemId };
-        },
-        collect: (monitor: any) => ({
-            isDragging: monitor.isDragging()
-        })
+        }
     });
 
     drag(drop(ref));
 
     return (
-        <div
-            className="item-bg"
-            ref={ref}
-            style={{ opacity: isDragging ? 0.5 : 1 }}>
+        <div className="item-bg" ref={ref}>
             <input
                 type="text"
                 placeholder="Item"

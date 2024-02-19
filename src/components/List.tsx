@@ -61,23 +61,17 @@ const List = ({ listId, title, items }: any) => {
         }
     });
 
-    const [{ isDragging }, drag] = useDrag({
+    const [, drag] = useDrag({
         type: 'list',
         item: () => {
             return { listId };
-        },
-        collect: (monitor: any) => ({
-            isDragging: monitor.isDragging()
-        })
+        }
     });
 
     drag(drop(ref));
 
     return (
-        <div
-            className="list"
-            ref={ref}
-            style={{ opacity: isDragging ? 0.5 : 1 }}>
+        <div className="list" ref={ref}>
             <ListTitleForm listId={listId} title={title} />
             {items.map((item: IItem, index: number) => (
                 <Item
