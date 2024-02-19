@@ -1,14 +1,75 @@
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useDrag, useDrop } from 'react-dnd';
 import { MdDelete } from 'react-icons/md';
-import { changeItem, removeItem } from '../reducer';
+import { changeItem, moveItem, removeItem } from '../reducer';
 
 const Item = ({ itemId, listId, text }: any) => {
     const dispatch = useDispatch();
+    const ref = useRef<HTMLDivElement>(null);
     const [textCopy, setTextCopy] = useState<string>('');
 
+    const handleMoveItem = useCallback(
+        (
+            dragListIndex: number,
+            dragItemIndex: number,
+            hoverListIndex: number,
+            hoverItemIndex: number
+        ) => {
+            dispatch(
+                moveItem({
+                    dragListIndex,
+                    dragItemIndex,
+                    hoverListIndex,
+                    hoverItemIndex
+                })
+            );
+        },
+        []
+    );
+
+    const [, drop] = useDrop({
+        accept: 'item',
+        hover(item: any) {
+            if (!ref.current) {
+                return;
+            }
+
+            const dragListIndex = item.listId;
+            const dragItemIndex = item.itemId;
+            const hoverListIndex = listId;
+            const hoverItemIndex = itemId;
+
+            if (
+                dragListIndex === hoverListIndex &&
+                dragItemIndex === hoverItemIndex
+            ) {
+                return;
+            }
+
+            handleMoveItem(
+                dragListIndex,
+                dragItemIndex,
+                hoverListIndex,
+                hoverItemIndex
+            );
+
+            item.listId = hoverListIndex;
+            item.itemId = hoverItemIndex;
+        }
+    });
+
+    const [, drag] = useDrag({
+        type: 'item',
+        item: () => {
+            return { listId, itemId };
+        }
+    });
+
+    drag(drop(ref));
+
     return (
-        <div className="item-bg">
+        <div className="item-bg" ref={ref}>
             <input
                 type="text"
                 placeholder="Item"

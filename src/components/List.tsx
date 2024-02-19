@@ -12,34 +12,34 @@ const List = ({ listId, title, items }: any) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const handleMoveList = useCallback(
-        (dragIndex: number, hoverIndex: number) => {
-            dispatch(moveList({ dragIndex, hoverIndex }));
+        (dragListIndex: number, hoverListIndex: number) => {
+            dispatch(moveList({ dragListIndex, hoverListIndex }));
         },
         []
     );
 
     const [, drop] = useDrop({
-        accept: 'item',
+        accept: 'list',
         hover(item: any) {
             if (!ref.current) {
                 return;
             }
 
-            const dragIndex = item.listId;
-            const hoverIndex = listId;
+            const dragListIndex = item.listId;
+            const hoverListIndex = listId;
 
-            if (dragIndex === hoverIndex) {
+            if (dragListIndex === hoverListIndex) {
                 return;
             }
 
-            handleMoveList(dragIndex, hoverIndex);
+            handleMoveList(dragListIndex, hoverListIndex);
 
-            item.listId = hoverIndex;
+            item.listId = hoverListIndex;
         }
     });
 
     const [, drag] = useDrag({
-        type: 'item',
+        type: 'list',
         item: () => {
             return { listId };
         }
