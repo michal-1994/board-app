@@ -89,6 +89,20 @@ export const listsSlice = createSlice({
                 0,
                 draggedItem
             );
+        },
+        moveItemToEmptyList: (
+            state,
+            action: PayloadAction<{
+                dragListIndex: number;
+                dragItemIndex: number;
+                hoverListIndex: number;
+            }>
+        ) => {
+            const { dragListIndex, dragItemIndex, hoverListIndex } =
+                action.payload;
+            const draggedItem = state.lists[dragListIndex].items[dragItemIndex];
+            state.lists[dragListIndex].items.splice(dragItemIndex, 1);
+            state.lists[hoverListIndex].items.splice(0, 0, draggedItem);
         }
     }
 });
@@ -101,7 +115,8 @@ export const {
     changeItem,
     removeItem,
     moveList,
-    moveItem
+    moveItem,
+    moveItemToEmptyList
 } = listsSlice.actions;
 
 export default listsSlice.reducer;

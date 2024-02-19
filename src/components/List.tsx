@@ -5,7 +5,7 @@ import AddItemForm from './AddItemForm';
 import Item from './Item';
 import ListTitleForm from './ListTitleForm';
 import { IItem } from '../interfaces/IItem';
-import { moveList } from '../reducer';
+import { moveItemToEmptyList, moveList } from '../reducer';
 
 const List = ({ listId, title, items }: any) => {
     const dispatch = useDispatch();
@@ -18,23 +18,46 @@ const List = ({ listId, title, items }: any) => {
         []
     );
 
+    const handleMoveItem = useCallback(
+        (
+            dragListIndex: number,
+            dragItemIndex: number,
+            hoverListIndex: number
+        ) => {
+            dispatch(
+                moveItemToEmptyList({
+                    dragListIndex,
+                    dragItemIndex,
+                    hoverListIndex
+                })
+            );
+        },
+        []
+    );
+
     const [, drop] = useDrop({
-        accept: 'list',
+        accept: ['list', 'item'],
         hover(item: any) {
             if (!ref.current) {
                 return;
             }
 
             const dragListIndex = item.listId;
+            const dragItemIndex = item.itemId;
             const hoverListIndex = listId;
 
             if (dragListIndex === hoverListIndex) {
                 return;
             }
 
-            handleMoveList(dragListIndex, hoverListIndex);
-
-            item.listId = hoverListIndex;
+            if (dragItemIndex === undefined) {
+                handleMoveList(dragListIndex, hoverListIndex);
+                item.listId = hoverListIndex;
+            } else if (items.length === 0) {
+                handleMoveItem(dragListIndex, dragItemIndex, hoverListIndex);
+                item.listId = hoverListIndex;
+                item.itemId = 0;
+            }
         }
     });
 
