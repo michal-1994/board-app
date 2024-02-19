@@ -28,8 +28,11 @@ const Item = ({ itemId, listId, text }: any) => {
         []
     );
 
-    const [, drop] = useDrop({
+    const [{ isOver }, drop] = useDrop({
         accept: 'item',
+        collect: monitor => ({
+            isOver: monitor.isOver()
+        }),
         hover(item: any) {
             if (!ref.current) {
                 return;
@@ -68,8 +71,10 @@ const Item = ({ itemId, listId, text }: any) => {
 
     drag(drop(ref));
 
+    const opacity = isOver ? 0 : 1;
+
     return (
-        <div className="item-bg" ref={ref}>
+        <div className="item-bg" ref={ref} style={{ opacity }}>
             <input
                 type="text"
                 placeholder="Item"
