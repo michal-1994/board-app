@@ -8,15 +8,19 @@ import { ADD_LIST_TITLE_ERROR } from '../constants';
 
 const AddListForm = () => {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState<string>('');
+    const [listTitle, setListTitle] = useState<string>('');
 
     const handleAddList = (e: any) => {
         e.preventDefault();
 
-        if (title.length === 0) return toast.info(ADD_LIST_TITLE_ERROR);
+        if (listTitle.length === 0) return toast.info(ADD_LIST_TITLE_ERROR);
 
-        dispatch(addList({ title, items: [] }));
-        setTitle('');
+        dispatch(addList({ title: listTitle, items: [] }));
+        setListTitle('');
+    };
+
+    const handleChangeList = (e: any) => {
+        setListTitle(e.target.value);
     };
 
     return (
@@ -25,10 +29,8 @@ const AddListForm = () => {
                 <input
                     type="text"
                     placeholder="Add List"
-                    value={title}
-                    onChange={e => {
-                        setTitle(e.target.value);
-                    }}
+                    value={listTitle}
+                    onChange={handleChangeList}
                 />
                 <button title="Add List" onClick={handleAddList}>
                     <FaPlus />

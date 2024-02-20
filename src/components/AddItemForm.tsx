@@ -12,15 +12,19 @@ interface AddItemFormProps {
 
 const AddItemForm: React.FC<AddItemFormProps> = ({ listId }) => {
     const dispatch = useDispatch();
-    const [text, setText] = useState<string>('');
+    const [itemText, setItemText] = useState<string>('');
 
     const handleAddItem = (e: any) => {
         e.preventDefault();
 
-        if (text.length === 0) return toast.info(ADD_ITEM_TEXT_ERROR);
+        if (itemText.length === 0) return toast.info(ADD_ITEM_TEXT_ERROR);
 
-        dispatch(addItem({ listId, text }));
-        setText('');
+        dispatch(addItem({ listId, text: itemText }));
+        setItemText('');
+    };
+
+    const handleChangeItem = (e: any) => {
+        setItemText(e.target.value);
     };
 
     return (
@@ -28,10 +32,8 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ listId }) => {
             <input
                 type="text"
                 placeholder="Add Item"
-                value={text}
-                onChange={e => {
-                    setText(e.target.value);
-                }}
+                value={itemText}
+                onChange={handleChangeItem}
             />
             <button title="Add Item" onClick={handleAddItem}>
                 <FaPlus />
