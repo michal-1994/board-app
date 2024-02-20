@@ -35,8 +35,12 @@ const List = ({ listId, title, items }: any) => {
         []
     );
 
-    const [, drop] = useDrop({
+    const [{ isOver, itemType }, drop] = useDrop({
         accept: ['list', 'item'],
+        collect: monitor => ({
+            isOver: monitor.isOver(),
+            itemType: monitor.getItemType()
+        }),
         hover(item: any) {
             if (!ref.current) {
                 return;
@@ -70,8 +74,10 @@ const List = ({ listId, title, items }: any) => {
 
     drag(drop(ref));
 
+    const opacity = isOver && itemType === 'list' ? 0 : 1;
+
     return (
-        <div className="list" ref={ref}>
+        <div className="list" ref={ref} style={{ opacity }}>
             <ListTitleForm listId={listId} title={title} />
             {items.map((item: IItem, index: number) => (
                 <Item
