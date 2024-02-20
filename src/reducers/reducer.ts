@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { produce } from 'immer';
 import { LISTS } from '../data/data';
 import { IList } from '../interfaces/IList';
 import {
@@ -19,7 +20,10 @@ export const listsSlice = createSlice({
     initialState,
     reducers: {
         addList: (state, action: PayloadAction<IList>) => {
-            state.lists.push(action.payload);
+            state.lists = produce(state.lists, draft => {
+                draft.push(action.payload);
+            });
+
             saveListsToLocalStorage(state.lists);
         },
         changeList: (
@@ -27,20 +31,29 @@ export const listsSlice = createSlice({
             action: PayloadAction<{ listId: number; title: string }>
         ) => {
             const { listId, title } = action.payload;
-            state.lists[listId] = { ...state.lists[listId], title };
+            state.lists = produce(state.lists, draft => {
+                draft[listId] = { ...draft[listId], title };
+            });
+
             saveListsToLocalStorage(state.lists);
         },
         removeList: (state, action: PayloadAction<{ listId: number }>) => {
-            state.lists.splice(action.payload.listId, 1);
+            state.lists = produce(state.lists, draft => {
+                draft.splice(action.payload.listId, 1);
+            });
+
             saveListsToLocalStorage(state.lists);
         },
         addItem: (
             state,
             action: PayloadAction<{ listId: number; text: string }>
         ) => {
-            state.lists[action.payload.listId].items.push({
-                text: action.payload.text
+            state.lists = produce(state.lists, draft => {
+                draft[action.payload.listId].items.push({
+                    text: action.payload.text
+                });
             });
+
             saveListsToLocalStorage(state.lists);
         },
         changeItem: (
@@ -52,17 +65,23 @@ export const listsSlice = createSlice({
             }>
         ) => {
             const { listId, itemId, text } = action.payload;
-            state.lists[listId].items[itemId].text = text;
+            state.lists = produce(state.lists, draft => {
+                draft[listId].items[itemId].text = text;
+            });
+
             saveListsToLocalStorage(state.lists);
         },
         removeItem: (
             state,
             action: PayloadAction<{ listId: number; itemId: number }>
         ) => {
-            state.lists[action.payload.listId].items.splice(
-                action.payload.itemId,
-                1
-            );
+            state.lists = produce(state.lists, draft => {
+                draft[action.payload.listId].items.splice(
+                    action.payload.itemId,
+                    1
+                );
+            });
+
             saveListsToLocalStorage(state.lists);
         },
         moveList: (
@@ -73,9 +92,12 @@ export const listsSlice = createSlice({
             }>
         ) => {
             const { dragListIndex, hoverListIndex } = action.payload;
-            const draggedList = state.lists[dragListIndex];
-            state.lists.splice(dragListIndex, 1);
-            state.lists.splice(hoverListIndex, 0, draggedList);
+            state.lists = produce(state.lists, draft => {
+                const draggedList = draft[dragListIndex];
+                draft.splice(dragListIndex, 1);
+                draft.splice(hoverListIndex, 0, draggedList);
+            });
+
             saveListsToLocalStorage(state.lists);
         },
         moveItem: (
@@ -93,13 +115,16 @@ export const listsSlice = createSlice({
                 hoverListIndex,
                 hoverItemIndex
             } = action.payload;
-            const draggedItem = state.lists[dragListIndex].items[dragItemIndex];
-            state.lists[dragListIndex].items.splice(dragItemIndex, 1);
-            state.lists[hoverListIndex].items.splice(
-                hoverItemIndex,
-                0,
-                draggedItem
-            );
+            state.lists = produce(state.lists, draft => {
+                const draggedItem = draft[dragListIndex].items[dragItemIndex];
+                draft[dragListIndex].items.splice(dragItemIndex, 1);
+                draft[hoverListIndex].items.splice(
+                    hoverItemIndex,
+                    0,
+                    draggedItem
+                );
+            });
+
             saveListsToLocalStorage(state.lists);
         },
         moveItemToEmptyList: (
@@ -112,9 +137,12 @@ export const listsSlice = createSlice({
         ) => {
             const { dragListIndex, dragItemIndex, hoverListIndex } =
                 action.payload;
-            const draggedItem = state.lists[dragListIndex].items[dragItemIndex];
-            state.lists[dragListIndex].items.splice(dragItemIndex, 1);
-            state.lists[hoverListIndex].items.splice(0, 0, draggedItem);
+            state.lists = produce(state.lists, draft => {
+                const draggedItem = draft[dragListIndex].items[dragItemIndex];
+                draft[dragListIndex].items.splice(dragItemIndex, 1);
+                draft[hoverListIndex].items.splice(0, 0, draggedItem);
+            });
+
             saveListsToLocalStorage(state.lists);
         }
     }
