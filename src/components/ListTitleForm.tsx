@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
-import { changeList, removeList } from '../reducer';
+import { changeList, removeList } from '../reducers/reducer';
 
 interface ListTitleFormProps {
     listId: number;

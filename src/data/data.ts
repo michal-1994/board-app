@@ -1,4 +1,4 @@
-import { IList } from './interfaces/IList';
+import { IList } from '../interfaces/IList';
 
 export const LISTS: IList[] = [
     {

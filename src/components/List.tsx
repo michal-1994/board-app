@@ -5,7 +5,7 @@ import AddItemForm from './AddItemForm';
 import Item from './Item';
 import ListTitleForm from './ListTitleForm';
 import { IItem } from '../interfaces/IItem';
-import { moveItemToEmptyList, moveList } from '../reducer';
+import { moveItemToEmptyList, moveList } from '../reducers/reducer';
 import { AcceptTypes } from '../types/AcceptTypes';
 
 interface ListProps {

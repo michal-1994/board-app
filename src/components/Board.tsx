@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import AddListForm from './AddListForm';
 import List from './List';
-import { ListsState } from '../reducer';
+import { ListsState } from '../reducers/reducer';
 import { IList } from '../interfaces/IList';
 
 const Board = () => {

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { LISTS } from './data';
-import { IList } from './interfaces/IList';
+import { LISTS } from '../data/data';
+import { IList } from '../interfaces/IList';
 
 export interface ListsState {
     lists: IList[];

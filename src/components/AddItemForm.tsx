@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Form } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
-import { addItem } from '../reducer';
-import { ADD_ITEM_TEXT_ERROR } from '../constants';
+import { addItem } from '../reducers/reducer';
+import { ADD_ITEM_TEXT_ERROR } from '../constants/errors';
 
 interface AddItemFormProps {
     listId: number;

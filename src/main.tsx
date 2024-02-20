@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import store from './store.ts';
+import store from './store/store.ts';
 import App from './App.tsx';
 import './index.css';
 
