@@ -7,7 +7,13 @@ import ListTitleForm from './ListTitleForm';
 import { IItem } from '../interfaces/IItem';
 import { moveItemToEmptyList, moveList } from '../reducer';
 
-const List = ({ listId, title, items }: any) => {
+interface ListProps {
+    listId: number;
+    title: string;
+    items: IItem[];
+}
+
+const List: React.FC<ListProps> = ({ listId, title, items }) => {
     const dispatch = useDispatch();
     const ref = useRef<HTMLDivElement>(null);
 

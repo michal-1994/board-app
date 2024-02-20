@@ -3,7 +3,12 @@ import { useDispatch } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
 import { changeList, removeList } from '../reducer';
 
-const ListTitleForm = ({ listId, title }: any) => {
+interface ListTitleFormProps {
+    listId: number;
+    title: string;
+}
+
+const ListTitleForm: React.FC<ListTitleFormProps> = ({ listId, title }) => {
     const dispatch = useDispatch();
     const [titleCopy, setTitleCopy] = useState<string>('');
 

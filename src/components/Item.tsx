@@ -4,7 +4,13 @@ import { useDrag, useDrop } from 'react-dnd';
 import { MdDelete } from 'react-icons/md';
 import { changeItem, moveItem, removeItem } from '../reducer';
 
-const Item = ({ itemId, listId, text }: any) => {
+interface ItemProps {
+    listId: number;
+    itemId: number;
+    text: string;
+}
+
+const Item: React.FC<ItemProps> = ({ listId, itemId, text }) => {
     const dispatch = useDispatch();
     const ref = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);

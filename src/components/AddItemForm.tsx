@@ -6,7 +6,11 @@ import { FaPlus } from 'react-icons/fa';
 import { addItem } from '../reducer';
 import { ADD_ITEM_TEXT_ERROR } from '../constants';
 
-const AddItemForm = ({ listId }: any) => {
+interface AddItemFormProps {
+    listId: number;
+}
+
+const AddItemForm: React.FC<AddItemFormProps> = ({ listId }) => {
     const dispatch = useDispatch();
     const [text, setText] = useState<string>('');
 
