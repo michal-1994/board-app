@@ -17,6 +17,24 @@ const Item: React.FC<ItemProps> = ({ listId, itemId, text }) => {
     const [textCopy, setTextCopy] = useState<string>('');
     const [textareaHeight, setTextareaHeight] = useState<string>('auto');
 
+    const handleChangeItem = (e: any) => {
+        dispatch(changeItem({ listId, itemId, text: e.target.value }));
+    };
+
+    const handleFocusItem = (e: any) => {
+        setTextCopy(e.target.value);
+    };
+
+    const handleBlurItem = (e: any) => {
+        if (e.target.value.length === 0) {
+            dispatch(changeItem({ listId, itemId, text: textCopy }));
+        }
+    };
+
+    const handleRemoveItem = () => {
+        dispatch(removeItem({ listId, itemId }));
+    };
+
     const adjustTextareaHeight = () => {
         const textarea = textareaRef.current;
         if (textarea) {
@@ -92,36 +110,18 @@ const Item: React.FC<ItemProps> = ({ listId, itemId, text }) => {
 
     drag(drop(ref));
 
-    const opacity = isOver ? 0 : 1;
-
     return (
-        <div className="item-bg" ref={ref} style={{ opacity }}>
+        <div className="item-bg" ref={ref} style={{ opacity: isOver ? 0 : 1 }}>
             <textarea
                 rows={1}
                 ref={textareaRef}
                 style={{ height: textareaHeight }}
                 placeholder="Item"
                 value={text}
-                onChange={e => {
-                    dispatch(
-                        changeItem({ listId, itemId, text: e.target.value })
-                    );
-                }}
-                onFocus={e => {
-                    setTextCopy(e.target.value);
-                }}
-                onBlur={e => {
-                    if (e.target.value.length === 0) {
-                        dispatch(
-                            changeItem({ listId, itemId, text: textCopy })
-                        );
-                    }
-                }}></textarea>
-            <button
-                title="Remove Item"
-                onClick={() => {
-                    dispatch(removeItem({ listId, itemId }));
-                }}>
+                onChange={handleChangeItem}
+                onFocus={handleFocusItem}
+                onBlur={handleBlurItem}></textarea>
+            <button title="Remove Item" onClick={handleRemoveItem}>
                 <MdDelete />
             </button>
         </div>

@@ -80,10 +80,11 @@ const List: React.FC<ListProps> = ({ listId, title, items }) => {
 
     drag(drop(ref));
 
-    const opacity = isOver && itemType === 'list' ? 0 : 1;
-
     return (
-        <div className="list" ref={ref} style={{ opacity }}>
+        <div
+            className="list"
+            ref={ref}
+            style={{ opacity: isOver && itemType === 'list' ? 0 : 1 }}>
             <ListTitleForm listId={listId} title={title} />
             {items.map((item: IItem, index: number) => (
                 <Item
