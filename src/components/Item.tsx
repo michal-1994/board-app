@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { MdDelete } from 'react-icons/md';
 import { changeItem, moveItem, removeItem } from '../reducer';
+import { AcceptTypes } from '../types/AcceptTypes';
 
 interface ItemProps {
     listId: number;
@@ -68,7 +69,7 @@ const Item: React.FC<ItemProps> = ({ listId, itemId, text }) => {
     );
 
     const [{ isOver }, drop] = useDrop({
-        accept: 'item',
+        accept: AcceptTypes.ITEM,
         collect: monitor => ({
             isOver: monitor.isOver()
         }),
@@ -102,7 +103,7 @@ const Item: React.FC<ItemProps> = ({ listId, itemId, text }) => {
     });
 
     const [, drag] = useDrag({
-        type: 'item',
+        type: AcceptTypes.ITEM,
         item: () => {
             return { listId, itemId };
         }

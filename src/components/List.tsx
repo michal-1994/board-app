@@ -6,6 +6,7 @@ import Item from './Item';
 import ListTitleForm from './ListTitleForm';
 import { IItem } from '../interfaces/IItem';
 import { moveItemToEmptyList, moveList } from '../reducer';
+import { AcceptTypes } from '../types/AcceptTypes';
 
 interface ListProps {
     listId: number;
@@ -42,7 +43,7 @@ const List: React.FC<ListProps> = ({ listId, title, items }) => {
     );
 
     const [{ isOver, itemType }, drop] = useDrop({
-        accept: ['list', 'item'],
+        accept: [AcceptTypes.LIST, AcceptTypes.ITEM],
         collect: monitor => ({
             isOver: monitor.isOver(),
             itemType: monitor.getItemType()
@@ -72,7 +73,7 @@ const List: React.FC<ListProps> = ({ listId, title, items }) => {
     });
 
     const [, drag] = useDrag({
-        type: 'list',
+        type: AcceptTypes.LIST,
         item: () => {
             return { listId };
         }
@@ -84,7 +85,9 @@ const List: React.FC<ListProps> = ({ listId, title, items }) => {
         <div
             className="list"
             ref={ref}
-            style={{ opacity: isOver && itemType === 'list' ? 0 : 1 }}>
+            style={{
+                opacity: isOver && itemType === AcceptTypes.LIST ? 0 : 1
+            }}>
             <ListTitleForm listId={listId} title={title} />
             {items.map((item: IItem, index: number) => (
                 <Item
