@@ -90,17 +90,20 @@ body {
     transition: box-shadow linear 0.2s;
 }
 
-input[type='text'] {
+input[type='text'],
+textarea {
     background-color: inherit;
     border: none;
     border-radius: 5px;
     color: white;
     font-size: 16px;
-    height: 100%;
+    height: auto;
     letter-spacing: 1px;
     margin: 0;
     outline: none;
+    overflow: hidden;
     padding: 8px;
+    resize: none;
     width: 100%;
 }
 

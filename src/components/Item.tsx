@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { MdDelete } from 'react-icons/md';
@@ -7,7 +7,22 @@ import { changeItem, moveItem, removeItem } from '../reducer';
 const Item = ({ itemId, listId, text }: any) => {
     const dispatch = useDispatch();
     const ref = useRef<HTMLDivElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [textCopy, setTextCopy] = useState<string>('');
+    const [textareaHeight, setTextareaHeight] = useState<string>('auto');
+
+    const adjustTextareaHeight = () => {
+        const textarea = textareaRef.current;
+        if (textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+            setTextareaHeight(`${textarea.scrollHeight}px`);
+        }
+    };
+
+    useEffect(() => {
+        adjustTextareaHeight();
+    }, [text]);
 
     const handleMoveItem = useCallback(
         (
@@ -75,8 +90,10 @@ const Item = ({ itemId, listId, text }: any) => {
 
     return (
         <div className="item-bg" ref={ref} style={{ opacity }}>
-            <input
-                type="text"
+            <textarea
+                rows={1}
+                ref={textareaRef}
+                style={{ height: textareaHeight }}
                 placeholder="Item"
                 value={text}
                 onChange={e => {
@@ -93,8 +110,7 @@ const Item = ({ itemId, listId, text }: any) => {
                             changeItem({ listId, itemId, text: textCopy })
                         );
                     }
-                }}
-            />
+                }}></textarea>
             <button
                 title="Remove Item"
                 onClick={() => {
