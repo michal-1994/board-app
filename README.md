@@ -50,7 +50,9 @@ Summary of testing procedures.
 
 ## Deployment
 
-Brief instructions for deployment.
+```bash
+npm run deploy
+```
 
 ## Known Issues
 
