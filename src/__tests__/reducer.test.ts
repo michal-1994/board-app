@@ -6,6 +6,7 @@ import listsReducer, {
     changeItem,
     changeList,
     moveItem,
+    moveItemToEmptyList,
     moveList,
     removeItem,
     removeList
@@ -217,6 +218,30 @@ describe('lists reducer', () => {
         expect(state.lists[2]).toEqual({
             title: 'Custom List 3',
             items: []
+        });
+    });
+
+    it('should handle moveItemToEmptyList', () => {
+        const action = moveItemToEmptyList({
+            dragListIndex: 0,
+            dragItemIndex: 0,
+            hoverListIndex: 2
+        });
+        store.dispatch(action);
+
+        const state = store.getState() as ListsState;
+        expect(state.lists).toHaveLength(3);
+        expect(state.lists[0]).toEqual({
+            title: 'Custom List 1',
+            items: [{ text: 'Item 2' }]
+        });
+        expect(state.lists[1]).toEqual({
+            title: 'Custom List 2',
+            items: [{ text: 'Item 1' }, { text: 'Item 2' }, { text: 'Item 3' }]
+        });
+        expect(state.lists[2]).toEqual({
+            title: 'Custom List 3',
+            items: [{ text: 'Item 1' }]
         });
     });
 });
