@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { produce } from 'immer';
-import { LISTS } from '../data/data';
-import { IList } from '../interfaces/IList';
+import { LISTS } from '../../data/data';
+import { IList } from '../../interfaces/IList';
 import {
     loadListsFromLocalStorage,
     saveListsToLocalStorage
-} from '../helpers/utils';
+} from '../../helpers/utils';
 
 export interface ListsState {
     lists: IList[];

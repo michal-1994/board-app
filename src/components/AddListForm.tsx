@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Form } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
-import { addList } from '../reducers/reducer';
+import { addList } from '../state/lists/reducer';
 import { ADD_LIST_TITLE_ERROR } from '../constants/errors';
 
 const AddListForm = () => {

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { MdDelete } from 'react-icons/md';
-import { changeItem, moveItem, removeItem } from '../reducers/reducer';
+import { changeItem, moveItem, removeItem } from '../state/lists/reducer';
 import { AcceptTypes } from '../types/AcceptTypes';
 
 interface ItemProps {
