@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import listsReducer, {
     ListsState,
+    addItem,
     addList,
+    changeItem,
     changeList,
+    removeItem,
     removeList
 } from '../state/lists/reducer';
 
@@ -54,7 +57,10 @@ describe('lists reducer', () => {
 
         const state = store.getState() as ListsState;
         expect(state.lists).toHaveLength(3);
-        expect(state.lists[0].title).toEqual('Custom List 1 Changed');
+        expect(state.lists[0]).toEqual({
+            title: 'Custom List 1 Changed',
+            items: [{ text: 'Item 1' }, { text: 'Item 2' }]
+        });
     });
 
     it('should handle removeList', () => {
@@ -67,5 +73,36 @@ describe('lists reducer', () => {
             title: 'Custom List 3',
             items: []
         });
+    });
+
+    it('should handle addItem', () => {
+        const action = addItem({ listId: 0, text: 'New item' });
+        store.dispatch(action);
+
+        const state = store.getState() as ListsState;
+        expect(state.lists[0].items).toHaveLength(3);
+        expect(state.lists[0].items[2]).toEqual({ text: 'New item' });
+    });
+
+    it('should handle changeItem', () => {
+        const action = changeItem({
+            listId: 1,
+            itemId: 2,
+            text: 'Item 3 Changed'
+        });
+        store.dispatch(action);
+
+        const state = store.getState() as ListsState;
+        expect(state.lists[1].items).toHaveLength(3);
+        expect(state.lists[1].items[2]).toEqual({ text: 'Item 3 Changed' });
+    });
+
+    it('should handle removeItem', () => {
+        const action = removeItem({ listId: 1, itemId: 1 });
+        store.dispatch(action);
+
+        const state = store.getState() as ListsState;
+        expect(state.lists[1].items).toHaveLength(2);
+        expect(state.lists[1].items[1]).toEqual({ text: 'Item 3' });
     });
 });
